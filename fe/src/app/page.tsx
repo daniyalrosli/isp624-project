@@ -12,7 +12,7 @@ const Navbar = () => {
           <Link href="/" className="text-gray-700 hover:text-blue-500">Home</Link>
           <Link href="/about" className="text-gray-700 hover:text-blue-500">About</Link>
           <Link href="/predict" className="text-gray-700 hover:text-blue-500">Predict</Link>
-          <Link href="/report" className="text-gray-700 hover:text-blue-500">Report</Link>
+          <Link href="/risk" className="text-gray-700 hover:text-blue-500">Risk Score</Link>
           <Link href="/contact" className="text-gray-700 hover:text-blue-500">Contacts</Link>
           <Link href="/login" className="px-6 py-2 bg-blue-500 text-white rounded shadow-md hover:shadow-lg transition-shadow">Login</Link>
         </div>
