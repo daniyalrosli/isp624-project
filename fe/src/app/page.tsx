@@ -13,7 +13,7 @@ const Navbar = () => {
           <Link href="/about" className="text-gray-700 hover:text-blue-500">About</Link>
           <Link href="/predict" className="text-gray-700 hover:text-blue-500">Predict</Link>
           <Link href="/risk" className="text-gray-700 hover:text-blue-500">Risk Score</Link>
-          <Link href="/contact" className="text-gray-700 hover:text-blue-500">Contacts</Link>
+          <Link href="/contacts" className="text-gray-700 hover:text-blue-500">Contacts</Link>
           <Link href="/login" className="px-6 py-2 bg-blue-500 text-white rounded shadow-md hover:shadow-lg transition-shadow">Login</Link>
         </div>
       </div>
@@ -42,7 +42,7 @@ export default function Home() {
                   Explore Features
                 </button>
               </Link>
-              <Link href="/contact">
+              <Link href="/contacts">
                 <button className="px-6 py-3 bg-gray-200 text-gray-700 rounded shadow hover:bg-gray-300 transition">
                   Get in Touch
                 </button>
