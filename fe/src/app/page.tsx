@@ -42,9 +42,9 @@ export default function Home() {
                   Explore Features
                 </button>
               </Link>
-              <Link href="/contacts">
+              <Link href="/info">
                 <button className="px-6 py-3 bg-gray-200 text-gray-700 rounded shadow hover:bg-gray-300 transition">
-                  Get in Touch
+                More Info
                 </button>
               </Link>
             </div>
