@@ -191,29 +191,35 @@ const Predict = () => {
           <div className="mt-6 text-center text-red-500">{error}</div>
         )}
 
-        {prediction && (
-          <div className="mt-12 text-center">
-            <h3 className="text-2xl font-semibold text-gray-800">Estimated Claim Amount</h3>
-            <p className="text-xl text-gray-600">{prediction}</p>
-          </div>
-        )}
-
-        {recommendations && (
-          <div className="mt-12 text-center">
-            <h3 className="text-2xl font-semibold text-gray-800">Recommendations</h3>
-            <p className="text-lg text-gray-600">{recommendations}</p>
-          </div>
-        )}
-
-       {reportFile && (
-  <div className="mt-12 text-center">
-    <h3 className="text-2xl font-semibold text-gray-800">Download Your Report</h3>
-    <a href={`/static/${reportFile}`} target="_blank" className="text-blue-500 hover:text-blue-700">
-      Click here to download the PDF report
-    </a>
+       {prediction && (
+  <div className="mt-12 bg-white p-6 rounded-lg shadow-lg border border-gray-200">
+    <h3 className="text-3xl font-semibold text-gray-800 mb-4">Estimated Claim Amount</h3>
+    <p className="text-2xl text-gray-600">{prediction}</p>
   </div>
 )}
-      </section>
+
+{recommendations && (
+  <div className="mt-12 bg-white p-6 rounded-lg shadow-lg border border-gray-200">
+    <h3 className="text-3xl font-semibold text-gray-800 mb-4">Recommendations</h3>
+    <p className="text-lg text-gray-600">{recommendations}</p>
+  </div>
+)}
+
+{reportFile && (
+  <div className="mt-12 bg-blue-50 p-6 rounded-lg shadow-lg border border-blue-200">
+    <h3 className="text-3xl font-semibold text-blue-800 mb-4">
+      Download Your Report
+    </h3>
+    <a
+      href={`/get_report/${reportFile}`}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="inline-block px-6 py-3 text-white bg-blue-600 rounded-lg shadow-md transform transition-transform duration-200 hover:bg-blue-700 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+    >
+      Download PDF Report
+    </a>
+  </div>
+)} </section>
     </div>
   );
 };
