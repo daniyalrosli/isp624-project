@@ -90,7 +90,7 @@ const Predict = () => {
   return (
     <div className="bg-gray-50 min-h-screen">
       <Navbar />
-      <section className="max-w-7xl mx-auto py-16 px-8 flex">
+      <section className="max-w-7xl mx-auto py-16 px-8 flex space-x-8">
         {/* Main Form Section */}
         <div className="flex-1">
           <h1 className="text-4xl font-serif text-gray-900 text-center">Insurance Claim Prediction</h1>
@@ -165,15 +165,19 @@ const Predict = () => {
             </div>
             <div className="space-y-2">
               <label htmlFor="region" className="text-gray-700">Region</label>
-              <input
-                type="text"
+              <select
                 id="region"
                 name="region"
                 value={formData.region}
                 onChange={handleChange}
                 className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-black"
                 required
-              />
+              >
+                <option value="" disabled>Select a region</option>
+                <option value="0">0</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+              </select>
             </div>
 
             <div className="text-center">
@@ -192,52 +196,34 @@ const Predict = () => {
           )}
 
           {prediction && (
-            <div className="mt-12 bg-white p-6 rounded-lg shadow-lg border border-gray-200">
-              <h3 className="text-3xl font-semibold text-gray-800 mb-4">Estimated Claim Amount</h3>
-              <p className="text-2xl text-gray-600">{prediction}</p>
+            <div className="mt-8 p-4 bg-gray-100 rounded-md shadow-sm">
+              <h3 className="text-xl font-medium text-gray-800 mb-2">Estimated Claim Amount</h3>
+              <p className="text-lg text-gray-600">{prediction}</p>
             </div>
           )}
 
           {recommendations && (
-            <div className="mt-12 bg-white p-6 rounded-lg shadow-lg border border-gray-200">
-              <h3 className="text-3xl font-semibold text-gray-800 mb-4">Recommendations</h3>
-              <p className="text-lg text-gray-600">{recommendations}</p>
-            </div>
-          )}
-
-          {reportFile && (
-            <div className="mt-12 bg-blue-50 p-6 rounded-lg shadow-lg border border-blue-200">
-              <h3 className="text-3xl font-semibold text-blue-800 mb-4">Download Your Report</h3>
-              <a
-                href={`/get_report/${reportFile}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-block px-6 py-3 text-white bg-blue-600 rounded-lg shadow-md transform transition-transform duration-200 hover:bg-blue-700 hover:scale-105 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
-              >
-                Download PDF Report
-              </a>
+            <div className="mt-8 p-4 bg-gray-100 rounded-md shadow-sm">
+              <h3 className="text-xl font-medium text-gray-800 mb-2">Recommendations</h3>
+              <p className="text-base text-gray-600">{recommendations}</p>
             </div>
           )}
         </div>
 
-        {/* Side Note Section */}
-        <aside className="w-80 ml-8 p-6 bg-white rounded-lg shadow-lg border border-gray-200">
-  <h3 className="text-xl font-semibold text-gray-800 mb-4">Region Details</h3>
-  <ul className="text-gray-700 space-y-3">
-    <li className="text-sm">
-      <span className="font-bold text-blue-500">0:</span> Represents the Northwest region, which includes areas like Perlis, Kedah, Penang, and Perak. Known for its agricultural and coastal industries. 
-      <span className="text-gray-600"> This region may have lower insurance claim amounts due to a lower cost of living and fewer urban-related risks.</span>
-    </li>
-    <li className="text-sm">
-      <span className="font-bold text-blue-500">1:</span> Represents the Southwest region, encompassing states like Selangor, Kuala Lumpur, Negeri Sembilan, and Melaka. The economic hub of Malaysia, home to the capital city. 
-      <span className="text-gray-600"> This region tends to have higher claim amounts due to more urbanization, greater healthcare costs, and increased accident risks in busy areas.</span>
-    </li>
-    <li className="text-sm">
-      <span className="font-bold text-blue-500">2:</span> Represents the Central region, which includes Johor, Pahang, Terengganu, and Kelantan. A mix of urban and rural areas, known for its industrial activities and tourism.
-      <span className="text-gray-600"> The claim prediction might be moderate in this region, with both industrial risks and a mix of rural healthcare facilities influencing the claims.</span>
-    </li>
-  </ul>
-</aside>
+     {/* Sidenote Section */}
+{/* Sidenote Section */}
+{/* Sidenote Section */}
+<div className="flex-1 bg-blue-50 p-6 rounded-lg shadow-lg border border-blue-200 max-w-md mx-auto">
+  <h3 className="text-2xl font-semibold text-blue-800 mb-4">Claim Prediction Tips</h3>
+  <p className="text-sm text-gray-700 mb-6">
+    After receiving your claim prediction, you can visit our tips page for advice and recommendations on how to handle your claim effectively.
+  </p>
+  <Link href="/tips">
+    <button className="w-full px-5 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-75 transition duration-300">
+      Go to Tips
+    </button>
+  </Link>
+</div>
       </section>
     </div>
   );

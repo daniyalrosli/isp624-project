@@ -1,8 +1,8 @@
-from flask import Flask, request, jsonify, send_file
+from flask import Flask, request, jsonify
 import joblib
 import numpy as np
 from flask_cors import CORS
-import os
+from sklearn.preprocessing import LabelEncoder
 
 app = Flask(__name__)
 CORS(app)
@@ -10,7 +10,12 @@ CORS(app)
 # Load the model
 model = joblib.load('insurance_model.pkl')
 
+# Initialize label encoder for region encoding
+region_encoder = LabelEncoder()
 
+# Fit the encoder with the possible regions (replace with actual regions)
+regions = ['Southeast', 'Northeast', 'North', 'South']
+region_encoder.fit(regions)
 
 @app.route('/')
 def home():
@@ -21,9 +26,6 @@ def predict():
     try:
         # Get data from request
         data = request.get_json(force=True)
-        
-        # Log the received data
-        print(f"Received data: {data}")
 
         # Ensure all required fields are present in the request
         required_fields = ['age', 'bmi', 'bloodpressure', 'children', 'smoker', 'region']
@@ -31,15 +33,27 @@ def predict():
             if field not in data:
                 return jsonify({'error': f"Missing field: {field}"}), 400
 
-        # Process data for prediction
+        # Validate region and encode it
+        if data['region'] not in regions:
+            return jsonify({'error': f"Invalid region: {data['region']}"}), 400
+
+        region_encoded = region_encoder.transform([data['region']])[0]
+
+        # Log to check encoding is correct
+        print(f"Encoded region: {region_encoded}")
+
+        # Prepare data for prediction
         input_data = np.array([[
             data['age'],
             data['bmi'],
             data['bloodpressure'],
             data['children'],
-            1 if data['smoker'] == 'Yes' else 0,  # Convert 'Yes'/'No' to 1/0
-            data['region']
+            1 if data['smoker'] == 'Yes' else 0,
+            region_encoded
         ]])
+
+        # Log input data for debugging
+        print(f"Input data for prediction: {input_data}")
 
         # Predict using the model
         prediction = model.predict(input_data)
@@ -50,9 +64,6 @@ def predict():
         # Generate recommendations
         recommendations = generate_recommendations(data)
 
-       
-
-        # Return the formatted prediction and recommendations
         return jsonify({
             'prediction': prediction_formatted,
             'recommendations': recommendations,
@@ -61,11 +72,7 @@ def predict():
     except Exception as e:
         return jsonify({'error': str(e)}), 400
 
-
-
-
 def generate_recommendations(data):
-    """Generate recommendations based on user input."""
     recs = []
     if float(data['bmi']) > 25:
         recs.append("Consider consulting with a nutritionist to manage BMI levels.")

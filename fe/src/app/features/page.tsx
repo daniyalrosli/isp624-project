@@ -36,8 +36,8 @@ const features = [
     description:
       "The geographical location of the individual. It represents where the individual resides and may reflect healthcare costs and access in that area.",
     influence:
-      "Regions with higher healthcare costs or limited access to affordable services may show higher predicted claim amounts.",
-  },
+    "The region is represented numerically: 0 for Northwest (e.g., Perlis, Kedah, Penang, Perak), 1 for Southwest (e.g., Selangor, Kuala Lumpur, Negeri Sembilan, Melaka), and 2 for Central (e.g., Johor, Pahang, Terengganu, Kelantan).",
+  },   
   {
     name: "Blood Pressure",
     description:
