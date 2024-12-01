@@ -14,6 +14,7 @@ const Navbar = () => {
           <Link href="/about" className="text-gray-700 hover:text-blue-500">About</Link>
           <Link href="/predict" className="text-gray-700 hover:text-blue-500">Predict</Link>
           <Link href="/contact" className="text-gray-700 hover:text-blue-500">Contacts</Link>
+          <Link href="/package" className="text-gray-700 hover:text-blue-500">Package</Link>
         </div>
       </div>
     </nav>
@@ -215,23 +216,29 @@ const Predict = () => {
             <div className="mt-6 text-center text-red-500">{error}</div>
           )}
 
-          {prediction && (
-            <div className="mt-8 p-4 bg-gray-100 rounded-md shadow-sm">
-              <h3 className="text-xl font-medium text-gray-800 mb-2">Estimated Claim Amount</h3>
-              <p className="text-lg text-gray-600">{prediction}</p>
-            </div>
-          )}
+{prediction && (
+  <div className="mt-8 p-4 bg-gray-100 rounded-md shadow-sm">
+    <h3 className="text-xl font-medium text-gray-800 mb-2">Estimated Claim Amount</h3>
+    <p className="text-lg text-gray-600">{prediction}</p>
+    <Link href="/package">
+      <button className="mt-4 px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition duration-300">
+        Check Recommended Packages
+      </button>
+    </Link>
+  </div>
+)}
 
-          {recommendations && (
-            <div className="mt-8 p-4 bg-gray-100 rounded-md shadow-sm">
-              <h3 className="text-xl font-medium text-gray-800 mb-2">Recommendations</h3>
-              <ul className="list-disc list-inside text-base text-gray-600">
-                {recommendations.split('\n').map((rec, index) => (
-                  <li key={index}>{rec}</li>
-                ))}
-              </ul>
-            </div>
-          )}
+{recommendations && (
+  <div className="mt-8 p-4 bg-gray-100 rounded-md shadow-sm">
+    <h3 className="text-xl font-medium text-gray-800 mb-2">Recommendations</h3>
+    <ul className="list-disc list-inside text-base text-gray-600">
+      {recommendations.split('\n').map((rec, index) => (
+        <li key={index}>{rec}</li>
+      ))}
+    </ul>
+  </div>
+)}
+          
         </div>
 
      {/* Tips Section */}
