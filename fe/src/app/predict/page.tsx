@@ -44,12 +44,25 @@ const Predict = () => {
     });
   };
 
+  const validateForm = () => {
+    if (!formData.age || !formData.bmi || !formData.bloodpressure || !formData.children || !formData.region) {
+      setError('Please fill in all the fields correctly.');
+      return false;
+    }
+    return true;
+  };
+
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setLoading(true);
     setError('');
+    setLoading(true);
     setRecommendations('');
     setPrediction('');
+
+    if (!validateForm()) {
+      setLoading(false);
+      return;
+    }
 
     try {
       const response = await axios.post('http://127.0.0.1:5001/predict', formData, {
@@ -60,8 +73,10 @@ const Predict = () => {
         setPrediction(response.data.prediction);
       }
 
-      if (response.data.recommendations) {
+      if (response.data.recommendations && response.data.recommendations.length > 0) {
         setRecommendations(response.data.recommendations.join('\n'));
+      } else {
+        setRecommendations('No specific recommendations available.');
       }
 
       if (response.data.report_file) {
@@ -78,15 +93,15 @@ const Predict = () => {
       });
     } catch (error: unknown) {
       if (axios.isAxiosError(error)) {
-        setError('Error predicting claim amount: ' + (error.response?.data?.error || error.message));
+        const serverError = error.response?.data?.error || 'An unknown error occurred.';
+        setError(`Unable to process your request: ${serverError}`);
       } else {
-        setError('Error predicting claim amount: ' + error);
+        setError('Something went wrong. Please try again later.');
       }
     } finally {
       setLoading(false);
     }
   };
-
   return (
     <div className="bg-gray-50 min-h-screen">
       <Navbar />
@@ -106,6 +121,7 @@ const Predict = () => {
                   name="age"
                   value={formData.age}
                   onChange={handleChange}
+                  placeholder="Enter your age"
                   className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-black"
                   required
                 />
@@ -118,6 +134,7 @@ const Predict = () => {
                   name="bmi"
                   value={formData.bmi}
                   onChange={handleChange}
+                  placeholder="Enter your BMI"
                   className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-black"
                   required
                 />
@@ -132,6 +149,7 @@ const Predict = () => {
                   name="bloodpressure"
                   value={formData.bloodpressure}
                   onChange={handleChange}
+                  placeholder="Enter your blood pressure"
                   className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-black"
                   required
                 />
@@ -144,6 +162,7 @@ const Predict = () => {
                   name="children"
                   value={formData.children}
                   onChange={handleChange}
+                  placeholder="Number of children"
                   className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 text-black"
                   required
                 />
@@ -174,9 +193,10 @@ const Predict = () => {
                 required
               >
                 <option value="" disabled>Select a region</option>
-                <option value="0">0</option>
-                <option value="1">1</option>
-                <option value="2">2</option>
+                <option value="northwest">Northwest</option>
+                <option value="northeast">Northeast</option>
+                <option value="southeast">Southeast</option>
+                <option value="southwest">Southwest</option>
               </select>
             </div>
 
@@ -205,22 +225,41 @@ const Predict = () => {
           {recommendations && (
             <div className="mt-8 p-4 bg-gray-100 rounded-md shadow-sm">
               <h3 className="text-xl font-medium text-gray-800 mb-2">Recommendations</h3>
-              <p className="text-base text-gray-600">{recommendations}</p>
+              <ul className="list-disc list-inside text-base text-gray-600">
+                {recommendations.split('\n').map((rec, index) => (
+                  <li key={index}>{rec}</li>
+                ))}
+              </ul>
             </div>
           )}
         </div>
 
-     {/* Sidenote Section */}
-{/* Sidenote Section */}
-{/* Sidenote Section */}
+     {/* Tips Section */}
 <div className="flex-1 bg-blue-50 p-6 rounded-lg shadow-lg border border-blue-200 max-w-md mx-auto">
-  <h3 className="text-2xl font-semibold text-blue-800 mb-4">Claim Prediction Tips</h3>
+  <h3 className="text-2xl font-semibold text-blue-800 mb-4">Understanding Regions in Insurance Claims</h3>
   <p className="text-sm text-gray-700 mb-6">
-    After receiving your claim prediction, you can visit our tips page for advice and recommendations on how to handle your claim effectively.
+    The regions used in our predictions represent different geographical areas:
+    <ul className="list-disc pl-5 text-gray-700">
+      <li>
+        <strong>Northeast:</strong> States in the northeastern part of the country, known for diverse climates and urban density.
+      </li>
+      <li>
+        <strong>Northwest:</strong> Areas in the northwestern region, often characterized by forests, mountains, and cooler climates.
+      </li>
+      <li>
+        <strong>Southwest:</strong> States in the southwest with arid climates, deserts, and sunny weather.
+      </li>
+      <li>
+        <strong>Southeast:</strong> Regions in the southeast, known for humid weather and a mix of coastal and inland areas.
+      </li>
+    </ul>
   </p>
-  <Link href="/tips">
+  <p className="text-sm text-gray-700 mb-6">
+    Understanding your region can help you better interpret insurance claim predictions, as regional factors like healthcare costs and lifestyle can influence the outcomes.
+  </p>
+  <Link href="/info">
     <button className="w-full px-5 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-opacity-75 transition duration-300">
-      Go to Tips
+      Learn More About Regions
     </button>
   </Link>
 </div>

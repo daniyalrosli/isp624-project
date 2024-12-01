@@ -13,6 +13,7 @@ const Navbar = () => {
           <Link href="/about" className="text-gray-700 hover:text-blue-500">About</Link>
           <Link href="/predict" className="text-gray-700 hover:text-blue-500">Predict</Link>
           <Link href="/tips" className="text-gray-700 hover:text-blue-500">Tips</Link>
+          <Link href="/package" className="text-gray-700 hover:text-blue-500">Package</Link>
           <Link href="/contacts" className="text-gray-700 hover:text-blue-500">Contacts</Link>
           
           <Link href="/login" className="px-6 py-2 bg-blue-500 text-white rounded shadow-md hover:shadow-lg transition-shadow">Login</Link>
@@ -21,7 +22,6 @@ const Navbar = () => {
     </nav>
   );
 };
-
 export default function Home() {
   return (
     <div className="bg-gray-50 min-h-screen">
@@ -33,9 +33,16 @@ export default function Home() {
             <h2 className="text-xl text-gray-700">AI-Driven Insights for Smarter Insurance</h2>
             <p className="text-gray-600 leading-relaxed">
               InsureXpert is a state-of-the-art platform designed to revolutionize 
-              the way you manage insurance claims. Leveraging advanced AI and 
-              predictive analytics, we simplify claim reviews, enhance transparency, 
+              the way you manage health insurance claims. Leveraging advanced AI 
+              and predictive analytics, we simplify claim reviews, enhance transparency, 
               and deliver actionable insights tailored to your needs.
+            </p>
+            <p className="text-gray-600 leading-relaxed">
+              Our platform specializes in health insurance claim prediction helping 
+              individuals and organizations accurately estimate claim amounts. Using 
+              factors such as age, BMI, medical history, smoking habits, and more, 
+              InsureXpert's prediction model empowers users to make informed decisions 
+              and ensures a smoother, more efficient claims process.
             </p>
             <div className="flex space-x-4">
               <Link href="/features">
@@ -65,7 +72,3 @@ export default function Home() {
     </div>
   );
 }
-
-
-
-
