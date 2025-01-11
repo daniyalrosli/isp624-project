@@ -31,7 +31,7 @@ const Login = () => {
       setTimeout(() => {
         if (formData.email === 'user@insurexpert.com' && formData.password === 'password123') {
           // Successful login
-          window.location.href = '/dashboard'; // Redirect to dashboard
+          window.location.href = '/'; // Redirect to dashboard
         } else {
           setError('Invalid email or password.');
         }

@@ -33,7 +33,6 @@ const Predict = () => {
 
   const [prediction, setPrediction] = useState('');
   const [recommendations, setRecommendations] = useState('');
-  const [reportFile, setReportFile] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
 
@@ -81,17 +80,15 @@ const Predict = () => {
       }
 
       if (response.data.report_file) {
-        setReportFile(response.data.report_file);
+        setFormData({
+          age: '',
+          bmi: '',
+          bloodpressure: '',
+          children: '',
+          smoker: 'No',
+          region: ''
+        });
       }
-
-      setFormData({
-        age: '',
-        bmi: '',
-        bloodpressure: '',
-        children: '',
-        smoker: 'No',
-        region: ''
-      });
     } catch (error: unknown) {
       if (axios.isAxiosError(error)) {
         const serverError = error.response?.data?.error || 'An unknown error occurred.';

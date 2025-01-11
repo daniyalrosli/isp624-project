@@ -41,7 +41,7 @@ export default function Home() {
               Our platform specializes in health insurance claim prediction helping 
               individuals and organizations accurately estimate claim amounts. Using 
               factors such as age, BMI, medical history, smoking habits, and more, 
-              InsureXpert's prediction model empowers users to make informed decisions 
+              InsureXpert&apos;s prediction model empowers users to make informed decisions 
               and ensures a smoother, more efficient claims process.
             </p>
             <div className="flex space-x-4">
